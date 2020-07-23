@@ -1,0 +1,35 @@
+from watson_machine_learning_client import WatsonMachineLearningAPIClient
+
+wml_credentials={
+  "apikey": "s8y8iujKIU4Yp0Gpa0GCCJeW2VYi65viMG2qV2UQhaq9",
+  "iam_apikey_description": "Auto-generated for key bfed9624-7960-433e-8246-84065fe705bd",
+  "iam_apikey_name": "wdp-writer",
+  "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/f69c66dba660431eac4a575ea9480d28::serviceid:ServiceId-c63f0953-93c3-461e-ae6b-cd2595e83b54",
+  "instance_id": "94aa20e0-edd3-42db-85f4-6be2322cf9f6",
+  "url": "https://eu-gb.ml.cloud.ibm.com"
+}
+
+client = WatsonMachineLearningAPIClient(wml_credentials)
+
+metadata={
+    client.repository.ModelMetaNames.DESCRIPTION:'life expectancy data',
+    client.repository.ModelMetaNames.AUTHOR_NAME:'Saurav',
+    client.repository.ModelMetaNames.NAME:"linear",
+    client.repository.ModelMetaNames.FRAMEWORK_NAME:"scikit-learn",
+    client.repository.ModelMetaNames.FRAMEWORK_VERSION:"0.22"
+    
+}
+
+model_details=client.repository.store_model(mr,meta_props=metadata)
+
+published_model_uid=client.repository.get_model_uid(model_details)
+
+published_model_uid
+
+created_deployment=client.deployments.create(published_model_uid,name="MLR")
+
+scoring_endpoint = client.deployments.get_scoring_url(created_deployment)
+scoring_endpoint
+
+client.deployments.list()
